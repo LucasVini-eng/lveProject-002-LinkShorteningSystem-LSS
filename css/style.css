@@ -1,0 +1,49 @@
+:root {
+    --color-accent: #e2770c;
+    --color-accent-hover: #7d4410;
+    --color-dark: #0a0a0a;
+    --color-darker: #000000;
+    --color-card: #121212;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-accent-border: rgba(147, 85, 24, 0.3);
+    --color-accent-light: rgba(147, 85, 24, 0.1);
+    --color-bg: rgb(22, 20, 26);
+    --color-white:white;
+    --color-bg-sibar:#0e1117;
+}
+
+.stMain{
+    background-color:var(--color-bg);
+    color: var(--color-accent);
+}
+
+.stMainBlockContainer{
+    background-color: var(--color-dark);
+    border-radius: 15px;
+}
+
+#link-shortening-system-lss{
+    color: var(--color-white);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8cm;
+    text-align: center;
+
+}
+
+.stSidebar{
+    background-color: var(--color-bg-sibar);
+}
+
+.stSidebar .stVerticalBlock{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+h3{
+    text-align: center;
+}
+
+.stTittle{
+    color: aliceblue;
+}
