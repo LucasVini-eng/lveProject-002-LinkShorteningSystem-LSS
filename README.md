@@ -100,10 +100,6 @@ O ciclo de vida da transformação de um link no sistema segue o padrão **Check
    ```bash
    pip install streamlit pyshorteners validators
 
-
-
-
-
-
-
-
+3. **Inicie a aplicação localmente:**
+   ```bash
+     streamlit run app.py
