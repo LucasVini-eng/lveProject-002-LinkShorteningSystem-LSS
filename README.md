@@ -59,24 +59,27 @@ Como o sistema opera no modelo **Server-Side Rendered (SSR)** via WebSockets no 
 O motor de segurança do LSS atua em **três camadas de análise heurística** para mitigar riscos de phishing, distribuição de binários maliciosos e ataques baseados em engenharia social.
 <img width="620" height="420" alt="image" src="https://github.com/user-attachments/assets/ca013650-ea37-41eb-9c34-758a4f6500f4" />
 
-Detalhamento das Camadas de Defesa
-Protocolo de Transport Seguro (HTTPS):
+<br>
+### Detalhamento das Camadas de Defesa
 
-Verificação via urllib.parse.urlparse. URLs sob o esquema http:// não criptografado são rejeitadas para evitar ataques Man-in-the-Middle (MitM) ou interceptação de credenciais.
+1. **Protocolo de Transport Seguro (`HTTPS`):**
+   * Verificação via `urllib.parse.urlparse`. URLs sob o esquema `http://` não criptografado são rejeitadas para evitar ataques *Man-in-the-Middle (MitM)* ou interceptação de credenciais.
 
-Engenharia Social & Gatilhos Psicológicos (Keywords Check):
+2. **Engenharia Social & Gatilhos Psicológicos (Keywords Check):**
+   * Ataques de phishing frequentemente utilizam termos chamativos no domínio ou caminho para induzir cliques impulsivos. O sistema filtra termos mapeados como gatilhos de alto risco:
+     * *Iscas Financeiras / Ofertas:* `gratis`, `ganhe-dinheiro`, `brinde`, `desconto`, `oferta`.
+     * *Urgência / Ação Forçada:* `urgente`, `cadastro`.
+     * *Apostas / Jogos:* `bet`.
 
-Ataques de phishing frequentemente utilizam termos chamativos no domínio ou caminho para induzir cliques impulsivos. O sistema filtra termos mapeados como gatilhos de alto risco:
+3. **Prevenção contra Download Direto de Malwares:**
+   * A análise verifica a extensão no caminho da URL (`path`). Requisições apontando diretamente para executáveis (`.exe`, `.bat`, `.cmd`, `.msi`) são bloqueadas para mitigar ataques *Drive-by Download*.
 
-Iscas Financeiras / Ofertas: gratis, ganhe-dinheiro, brinde, desconto, oferta.
+---
 
-Urgência / Ação Forçada: urgente, cadastro.
+## 🔄 5. Transformação de URL Longa para Curta
 
-Apostas / Jogos: bet.
-
-Prevenção contra Download Direto de Malwares:
-
-A análise verifica a extensão no caminho da URL (path). Requisições apontando diretamente para executáveis (.exe, .bat, .cmd, .msi) são bloqueadas para mitigar ataques Drive-by Download.
+O ciclo de vida da transformação de um link no sistema segue o padrão **Check-Then-Act**:
+[ Long URL ] ➔ [ Input Verification ] ➔ [ State: Verified = True ] ➔ [ API Request ] ➔ [ Short URL ]
 
 
 
