@@ -96,7 +96,9 @@ O ciclo de vida da transformação de um link no sistema segue o padrão **Check
    git clone [https://github.com/seu-usuario/link-shortener-lss.git](https://github.com/seu-usuario/link-shortener-lss.git)
    cd link-shortener-lss
 
-
+2. **Instale as dependências::**
+   ```bash
+   pip install streamlit pyshorteners validators
 
 
 
