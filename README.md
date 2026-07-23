@@ -20,3 +20,13 @@ O projeto foi construído e implantado utilizando padrões modernos do ecossiste
 ## 🏗️ 1. Desenho de Arquitetura & Visão Geral
 
 O sistema utiliza o **Streamlit** como camada de apresentação e controlador de estado de sessão, desacoplando a lógica de validação de segurança e integração com provedores externos de encurtamento.
+
++----------------------------------+------------------------------------+
+|                       Streamlit Frontend (Cloud)                      |
+|  [ Entrada de URL ]  --->  [ Check URL ]  --->  [ Shorten Button ]    |
++----------------------------------+------------------------------------+
+                                   |
+
+
+
+
