@@ -23,7 +23,41 @@ O sistema utiliza o **Streamlit** como camada de apresentação e controlador de
 
 <img width="520" height="320" alt="image" src="https://github.com/user-attachments/assets/8be8b708-eca4-4d87-b71a-8d023049fafa" />
 
+---
 
+## 📋 2. Requisitos do Sistema
+
+### Requisitos Funcionais (FR)
+* **FR-01 - Validação Sintática:** O sistema deve verificar se a URL inserida possui formato sintático válido (com suporte a schemas HTTP/HTTPS).
+* **FR-02 - Inspeção de Segurança:** O sistema deve analisar a URL em busca de elementos suspeitos associados a malwares ou engenharia social antes da geração do link.
+* **FR-03 - Encurtamento de URL:** O sistema deve gerar um link encurtado apenas para URLs aprovadas nas etapas de validação e segurança.
+* **FR-04 - Gestão de Estado:** O sistema deve invalidar a checagem de segurança anterior caso o usuário modifique a URL no campo de entrada.
+
+### Requisitos Não-Funcionais (NFR)
+* **NFR-01 - Desempenho / Latência:** O tempo de checagem local de heurísticas deve ser near-instantâneo ($< 50\text{ ms}$).
+* **NFR-02 - Usabilidade:** Interface intuitiva com feedback visual claro (*Toasts/Alerts*) quanto ao status de segurança do link.
+* **NFR-03 - Disponibilidade:** Hospedagem em nuvem via **Streamlit Cloud** garantindo alta disponibilidade sem custos fixos de servidor.
+
+---
+
+## 📡 3. Interfaces & Endpoints (Mapeamento de Fluxo)
+
+Como o sistema opera no modelo **Server-Side Rendered (SSR)** via WebSockets no Streamlit, as interações do usuário acionam eventos no fluxo da aplicação em vez de requisições HTTP REST clássicas.
+
+| Ação do Usuário | Componente Interno | Entrada | Saída / Efeito |
+| :--- | :--- | :--- | :--- |
+| **Digitação de URL** | `st.text_input` | `long_url` (string) | Atualização de estado `st.session_state` e reset de verificação. |
+| **Clique "Check URL"** | `validators.url` + `check_safety()` | `long_url` | Validação sintática e checagem heurística de ameaças. |
+| **Clique "Shorten URL"** | `pyshorteners.Shortener().tinyurl` | `long_url` (verificada) | Chamada REST ao provedor `TinyURL` e retorno do link curto. |
+
+### Integração de API Externa (Provedor)
+* **Endpoint de Terceiros:** `http://tinyurl.com/api-create.php?url={long_url}`
+* **Método:** `GET`
+* **Payload:** URL original serializada via query parameter.
+
+## 🛡️ 4. Validação de Segurança e Prevenção de Engenharia Social
+
+O motor de segurança do LSS atua em **três camadas de análise heurística** para mitigar riscos de phishing, distribuição de binários maliciosos e ataques baseados em engenharia social.
 
 
 
